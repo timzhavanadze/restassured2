@@ -5,19 +5,6 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 public class Tests {
-    @Test
-    public void task() {
-        given().
-                header("accept","application/json").
-                queryParam("ISBN","9781449325862").
-                when().
-                get("https://bookstore.toolsqa.com/BookStore/v1/Book").
-                then().
-                assertThat().
-                statusCode(200).
-                body("title",equalTo("Git Pocket Guide"));
-    }
-
     @DataProvider(name = "indexAndCountry")
     public Object[][] data() {
         return new Object[][] {

@@ -14,8 +14,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class TestingOurMethods {
-    //სახელი არასწორადაა შერჩეული. ვარჩევთ აპის მეთოდის მიხედვით მაგალითად;
-
     RegisterSteps registerSteps = new RegisterSteps();
     UsersStep usersStep = new UsersStep();
     SuccessResponse successResponse = new SuccessResponse();
@@ -23,14 +21,12 @@ public class TestingOurMethods {
     UsersResponse usersResponse = new UsersResponse();
 
     @Test(dataProvider = "registration", dataProviderClass = DataProviderClass.class, priority = 1)
-    @Description("ვტესტავთ საშინაო დავალებას - ნაწილი 1")
     @Severity(SeverityLevel.CRITICAL)
     public void userRegistration(String variant) throws JsonProcessingException {
         if(variant.equals("successfulRegistration")){
             Response response = registerSteps.sendRequest(registerSteps.setCorrectParameters());
             successResponse = registerSteps.deserializeJsonObjectForSuccess(response);
             if(response.statusCode() == 200){
-                //ასერტები შეგგვიძლია ცალცალკე გავიტანოთ სტეპებში, მაგრამ თვალსაჩინოებისთვის აქ დავტოვე
                 Assert.assertEquals(successResponse.getId(), Constants.successID);
                 Assert.assertEquals(successResponse.getToken(), Constants.successToken);
             }
@@ -42,7 +38,6 @@ public class TestingOurMethods {
             Response response = registerSteps.sendRequest(registerSteps.setIncorrectParameters());
             unsuccessResponse = registerSteps.deserializeJsonObjectForFailed(response);
             if(response.statusCode() == 400){
-                //ასერტები შეგგვიძლია ცალცალკე გავიტანოთ სტეპებში, მაგრამ თვალსაჩინოებისთვის აქ დავტოვე
                 Assert.assertEquals(unsuccessResponse.getError(), Constants.missingEmailOrPasswordError);
             }
             else{
@@ -51,7 +46,6 @@ public class TestingOurMethods {
         }
     }
     @Test(priority = 2)
-    @Description("ვტესტავთ საშინაო დავალებას - ნაწილი 2")
     @Severity(SeverityLevel.CRITICAL)
     public void userTest() throws JsonProcessingException {
         Response response = usersStep.sendRequest(usersStep.setCorrectParameters());

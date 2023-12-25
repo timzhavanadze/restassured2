@@ -40,6 +40,7 @@ public class RegisterSteps {
                 .filter(new AllureRestAssured())
                 .contentType("application/json")
                 .body(parameters)
+                .log().all()
                 .post(baseURI);
     }
 

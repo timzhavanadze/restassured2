@@ -30,6 +30,7 @@ public class UsersStep {
                 .filter(new AllureRestAssured())
                 .contentType("application/json")
                 .body(parameters)
+                .log().all()
                 .post(baseURI);
     }
 
